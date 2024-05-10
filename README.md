@@ -2,6 +2,8 @@
 
 Developer documentation for AgentFi.
 
+Hosted at https://dev-docs.agentfi.io
+
 ## Requirements
 
 Node.js >= 16.14
