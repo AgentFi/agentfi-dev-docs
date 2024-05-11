@@ -13,7 +13,7 @@
 | BlastooorGenesisFactory          | [`0x700b6f8B315247DD41C42A6Cfca1dAE6B4567f3B`](https://testnet.blastscan.io/address/0x700b6f8B315247DD41C42A6Cfca1dAE6B4567f3B) |
 | BlastooorGenesisAccountFactory   | [`0xed545485E59C4Dec4156340871CEA8242674b6a2`](https://testnet.blastscan.io/address/0xed545485E59C4Dec4156340871CEA8242674b6a2) |
 | BlastooorStrategyFactory         | [`0x9578850dEeC9223Ba1F05aae1c998DD819c7520B`](https://testnet.blastscan.io/address/0x9578850dEeC9223Ba1F05aae1c998DD819c7520B) |
-| ConcentratedLiquidityAgentFactory| [`0xa8A3da313094C8DA378A81B5922a04049bDaAf79`](https://testnet.blastscan.io/address/0xa8A3da313094C8DA378A81B5922a04049bDaAf79) |
+| ConcentratedLiquidityAgentFactory| [`0x06ACC535E997bcc338927586802797A37be81A34`](https://testnet.blastscan.io/address/0x06ACC535E997bcc338927586802797A37be81A34) |
 
 ### Account Implementation Contracts
 
