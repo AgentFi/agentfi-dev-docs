@@ -170,6 +170,14 @@ Constructs the DexBalancerModuleA contract.
 
 
 
+### moduleA_depositBalanceAndRefundTo
+```solidity
+  function moduleA_depositBalanceAndRefundTo() external
+```
+
+
+
+
 ### moduleA_withdrawBalance
 ```solidity
   function moduleA_withdrawBalance() external
@@ -249,7 +257,7 @@ Deposits the tokens into the liquidity pool.
 ```solidity
   function _withdrawBalance() internal
 ```
-Deposits tokens from all pools.
+Withdraws tokens from all pools.
 Will attempt to withdraw all known tokens and hold the WETH and USDB in the TBA.
 
 
@@ -258,7 +266,7 @@ Will attempt to withdraw all known tokens and hold the WETH and USDB in the TBA.
 ```solidity
   function _withdrawThruster() internal
 ```
-Deposits tokens from Hyperlock staking and Thruster liquidity pool.
+Withdraws tokens from Hyperlock staking and Thruster liquidity pool.
 Will attempt to withdraw all known tokens and hold the WETH and USDB in the TBA.
 
 
@@ -267,7 +275,7 @@ Will attempt to withdraw all known tokens and hold the WETH and USDB in the TBA.
 ```solidity
   function _withdrawRingProtocol() internal
 ```
-Deposits tokens from Ring staking and liquidity pool.
+Withdraws tokens from Ring staking and liquidity pool.
 Will attempt to withdraw all known tokens and hold the WETH and USDB in the TBA.
 
 
@@ -276,10 +284,25 @@ Will attempt to withdraw all known tokens and hold the WETH and USDB in the TBA.
 ```solidity
   function _withdrawBlasterswap() internal
 ```
-Deposits tokens from Blasterswap liquidity pool.
+Withdraws tokens from Blasterswap liquidity pool.
 Will attempt to withdraw all known tokens and hold the WETH and USDB in the TBA.
 
 
+
+### _withdrawFreeBalance
+```solidity
+  function _withdrawFreeBalance(
+    address receiver
+  ) internal
+```
+Withdraws any balances not currently deposited in liquidity pools.
+Returns ETH and USDB to receiver.
+
+
+#### Parameters:
+| Name | Type | Description                                                          |
+| :--- | :--- | :------------------------------------------------------------------- |
+| `receiver` | address | The address to receive the tokens. |
 
 ### _checkApproval
 ```solidity

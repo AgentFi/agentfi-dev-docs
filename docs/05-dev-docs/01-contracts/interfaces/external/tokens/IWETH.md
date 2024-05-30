@@ -4,6 +4,14 @@
 
 
 ## Functions
+### deposit
+```solidity
+  function deposit() external
+```
+
+
+
+
 ### transferFrom
 ```solidity
   function transferFrom() external returns (bool)

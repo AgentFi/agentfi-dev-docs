@@ -178,6 +178,25 @@ Swaps `amountIn` of one token for as much as possible of another token
 | :----------------------------- | :------------ | :--------------------------------------------------------------------------- |
 | `amountOut` | uint256 | The amount of the received token |
 
+### moduleC_exactInputSingle02
+```solidity
+  function moduleC_exactInputSingle02(
+    address params
+  ) public returns (uint256 amountOut)
+```
+Swaps `amountIn` of one token for as much as possible of another token
+
+
+#### Parameters:
+| Name | Type | Description                                                          |
+| :--- | :--- | :------------------------------------------------------------------- |
+| `params` | address | The parameters necessary for the swap, encoded as `ExactInputSingleParams` in calldata |
+
+#### Return Values:
+| Name                           | Type          | Description                                                                  |
+| :----------------------------- | :------------ | :--------------------------------------------------------------------------- |
+| `amountOut` | uint256 | The amount of the received token |
+
 ### moduleC_sendBalanceTo
 ```solidity
   function moduleC_sendBalanceTo() public
@@ -282,6 +301,14 @@ Withdrawals, swaps and creates a new position at the new range
 
 
 
+### moduleC_rebalance02
+```solidity
+  function moduleC_rebalance02() external
+```
+Withdrawals, swaps and creates a new position at the new range
+
+
+
 ### _getSwapForNewRange
 ```solidity
   function _getSwapForNewRange() internal returns (address, address, uint256)
@@ -294,6 +321,14 @@ Not exact as it does not consider price impact of the swap
 ### _performSwap
 ```solidity
   function _performSwap() internal
+```
+
+
+
+
+### _performSwap02
+```solidity
+  function _performSwap02() internal
 ```
 
 
