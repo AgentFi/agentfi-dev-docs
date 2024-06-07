@@ -14,6 +14,7 @@
 | BlastooorGenesisAccountFactory   | [`0xed545485E59C4Dec4156340871CEA8242674b6a2`](https://testnet.blastscan.io/address/0xed545485E59C4Dec4156340871CEA8242674b6a2) |
 | BlastooorStrategyFactory         | [`0x9578850dEeC9223Ba1F05aae1c998DD819c7520B`](https://testnet.blastscan.io/address/0x9578850dEeC9223Ba1F05aae1c998DD819c7520B) |
 | ConcentratedLiquidityAgentFactory| [`0x06ACC535E997bcc338927586802797A37be81A34`](https://testnet.blastscan.io/address/0x06ACC535E997bcc338927586802797A37be81A34) |
+| AlgebraCLAgentFactory            | [`0x2713dAB352ad8aDd85743051451E0831439E10B2`](https://testnet.blastscan.io/address/0x2713dAB352ad8aDd85743051451E0831439E10B2) |
 
 ### Account Implementation Contracts
 
@@ -30,6 +31,7 @@
 |----------------------------------|----------------------------------------------|
 | MultiplierMaxxooorModuleB        | [`0xB52f71b3a8bB630F0F08Ca4f85EeF0d29212cEC0`](https://testnet.blastscan.io/address/0xB52f71b3a8bB630F0F08Ca4f85EeF0d29212cEC0) |
 | ConcentratedLiquidityModuleC     | [`0x89f6bfa5AF5Fe665F7Bc39156E6023641e426A9e`](https://testnet.blastscan.io/address/0x89f6bfa5AF5Fe665F7Bc39156E6023641e426A9e) |
+| ConcentratedLiquidityModuleE     | [`0x0961666fC994009221C2f5fd9eA540190490200D`](https://testnet.blastscan.io/address/0x0961666fC994009221C2f5fd9eA540190490200D) |
 
 ### External Utility Contracts
 
