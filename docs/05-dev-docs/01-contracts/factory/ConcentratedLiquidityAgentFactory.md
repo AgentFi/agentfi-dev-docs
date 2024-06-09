@@ -2,7 +2,7 @@
 
 A factory for strategy agents.
 
-Users can use [`createAgent()`](#createagent) to create a new agent. The agent will be created based on settings stored in the factory by the contract owner. These settings can be viewed via [`getAgentCreationSettings()`](#getagentcreationsettings).
+Agent operators can use one of the create methods to create a new agent. The agent will be created based on settings stored in the factory by the contract owner. These settings can be viewed via [`getAgentCreationSettings()`](#getagentcreationsettings).
 
 
 ## Functions
@@ -90,6 +90,63 @@ Can only be called by the owner of the root agent.
 ### createConcentratedLiquidityAgentAndExplorer
 ```solidity
   function createConcentratedLiquidityAgentAndExplorer(
+    struct IConcentratedLiquidityAgentFactory.MintBalanceParams mintParams,
+    struct IConcentratedLiquidityAgentFactory.TokenDeposit deposit0,
+    struct IConcentratedLiquidityAgentFactory.TokenDeposit deposit1
+  ) external returns (uint256 nonfungiblePositionTokenId, uint256 strategyAgentID, address strategyAddress, uint256 explorerAgentID, address explorerAddress)
+```
+Creates a new V3 strategy agent.
+The new agent will be minted to a new explorer agent.
+
+
+#### Parameters:
+| Name | Type | Description                                                          |
+| :--- | :--- | :------------------------------------------------------------------- |
+| `mintParams` | struct IConcentratedLiquidityAgentFactory.MintBalanceParams | Parameters to use to mint the position. |
+| `deposit0` | struct IConcentratedLiquidityAgentFactory.TokenDeposit | The first token and amount to deposit. |
+| `deposit1` | struct IConcentratedLiquidityAgentFactory.TokenDeposit | The second token and amount to deposit. |
+
+#### Return Values:
+| Name                           | Type          | Description                                                                  |
+| :----------------------------- | :------------ | :--------------------------------------------------------------------------- |
+| `nonfungiblePositionTokenId` | uint256 | The ID of the concentrated liquidity position. |
+| `strategyAgentID` | uint256 | The ID of the newly created strategy agent. |
+| `strategyAddress` | address | The address of the newly created strategy agent. |
+| `explorerAgentID` | uint256 | The ID of the newly created explorer agent. |
+| `explorerAddress` | address | The address of the newly created explorer agent. |
+
+### createConcentratedLiquidityAgentForRootAndRefundExcess
+```solidity
+  function createConcentratedLiquidityAgentForRootAndRefundExcess(
+    struct IConcentratedLiquidityAgentFactory.MintBalanceParams mintParams,
+    struct IConcentratedLiquidityAgentFactory.TokenDeposit deposit0,
+    struct IConcentratedLiquidityAgentFactory.TokenDeposit deposit1,
+    address rootAgentAddress
+  ) external returns (uint256 nonfungiblePositionTokenId, uint256 strategyAgentID, address strategyAddress)
+```
+Creates a new V3 strategy agent.
+The new agent will be minted to an existing root agent.
+Can only be called by the owner of the root agent.
+
+
+#### Parameters:
+| Name | Type | Description                                                          |
+| :--- | :--- | :------------------------------------------------------------------- |
+| `mintParams` | struct IConcentratedLiquidityAgentFactory.MintBalanceParams | Parameters to use to mint the position. |
+| `deposit0` | struct IConcentratedLiquidityAgentFactory.TokenDeposit | The first token and amount to deposit. |
+| `deposit1` | struct IConcentratedLiquidityAgentFactory.TokenDeposit | The second token and amount to deposit. |
+| `rootAgentAddress` | address | The address of the root agent to transfer the v3 agent to. |
+
+#### Return Values:
+| Name                           | Type          | Description                                                                  |
+| :----------------------------- | :------------ | :--------------------------------------------------------------------------- |
+| `nonfungiblePositionTokenId` | uint256 | The ID of the concentrated liquidity position. |
+| `strategyAgentID` | uint256 | The ID of the newly created strategy agent. |
+| `strategyAddress` | address | The address of the newly created strategy agent. |
+
+### createConcentratedLiquidityAgentAndExplorerAndRefundExcess
+```solidity
+  function createConcentratedLiquidityAgentAndExplorerAndRefundExcess(
     struct IConcentratedLiquidityAgentFactory.MintBalanceParams mintParams,
     struct IConcentratedLiquidityAgentFactory.TokenDeposit deposit0,
     struct IConcentratedLiquidityAgentFactory.TokenDeposit deposit1
@@ -224,6 +281,31 @@ The new agent will be minted to a new explorer agent.
 ### _createConcentratedLiquidityAgent
 ```solidity
   function _createConcentratedLiquidityAgent(
+    struct IConcentratedLiquidityAgentFactory.MintBalanceParams mintParams,
+    struct IConcentratedLiquidityAgentFactory.TokenDeposit deposit0,
+    struct IConcentratedLiquidityAgentFactory.TokenDeposit deposit1
+  ) internal returns (uint256 nonfungiblePositionTokenId, uint256 strategyAgentID, address strategyAddress)
+```
+Creates a new concentrated liquidity agent.
+
+
+#### Parameters:
+| Name | Type | Description                                                          |
+| :--- | :--- | :------------------------------------------------------------------- |
+| `mintParams` | struct IConcentratedLiquidityAgentFactory.MintBalanceParams | Parameters to use to mint the position. |
+| `deposit0` | struct IConcentratedLiquidityAgentFactory.TokenDeposit | The first token and amount to deposit. |
+| `deposit1` | struct IConcentratedLiquidityAgentFactory.TokenDeposit | The second token and amount to deposit. |
+
+#### Return Values:
+| Name                           | Type          | Description                                                                  |
+| :----------------------------- | :------------ | :--------------------------------------------------------------------------- |
+| `nonfungiblePositionTokenId` | uint256 | The ID of the concentrated liquidity position. |
+| `strategyAgentID` | uint256 | The ID of the newly created strategy agent. |
+| `strategyAddress` | address | The address of the newly created strategy agent. |
+
+### _createConcentratedLiquidityAgentAndRefundExcess
+```solidity
+  function _createConcentratedLiquidityAgentAndRefundExcess(
     struct IConcentratedLiquidityAgentFactory.MintBalanceParams mintParams,
     struct IConcentratedLiquidityAgentFactory.TokenDeposit deposit0,
     struct IConcentratedLiquidityAgentFactory.TokenDeposit deposit1

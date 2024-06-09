@@ -20,6 +20,7 @@ sidebar_position: 6
 | Twitter                          | [`https://twitter.com/Agent_Fi`](https://twitter.com/Agent_Fi) |
 | Discord                          | [`https://discord.agentfi.io`](https://discord.agentfi.io) |
 | Medium                           | [`https://agentfi.medium.com/`](https://agentfi.medium.com/) |
+| Hub                              | [`https://hub.xyz/agentfi`](https://hub.xyz/agentfi) |
 
 ### Resources  
 

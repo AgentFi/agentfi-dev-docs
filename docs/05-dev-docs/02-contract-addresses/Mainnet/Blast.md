@@ -10,10 +10,11 @@
 
 | Contract Name                    | Address                                      |
 |----------------------------------|----------------------------------------------|
-| BlastooorGenesisFactory          | [`0x700b6f8B315247DD41C42A6Cfca1dAE6B4567f3B`](https://blastexplorer.io/address/0x700b6f8B315247DD41C42A6Cfca1dAE6B4567f3B) |
-| BlastooorGenesisAccountFactory   | [`0x101E03D71e756Da260dC5cCd19B6CdEEcbB4397F`](https://blastexplorer.io/address/0x101E03D71e756Da260dC5cCd19B6CdEEcbB4397F) |
-| BlastooorStrategyFactory         | [`0x09906C1eaC081AC4aF24D6F7e05f7566440b4601`](https://blastexplorer.io/address/0x09906C1eaC081AC4aF24D6F7e05f7566440b4601) |
-| ConcentratedLiquidityAgentFactory| [`0x4F4B2f9c1dBE38Bd672CF9291E7C076db652628e`](https://blastexplorer.io/address/0x4F4B2f9c1dBE38Bd672CF9291E7C076db652628e) |
+| DexBalancerAgentFactory          | [`0xB52274826621B6886787eC29E4C25cd3493B4930`](https://blastexplorer.io/address/0xB52274826621B6886787eC29E4C25cd3493B4930) |
+| MultipliooorAgentFactory         | [`0xE42ECCA759813Ceed368Ca08d8F0F6780D0c41E1`](https://blastexplorer.io/address/0xE42ECCA759813Ceed368Ca08d8F0F6780D0c41E1) |
+| ConcentratedLiquidityAgentFactory| [`0x5eAda3477F15A0636D1eDCa309ECcd0A6e8Ab77F`](https://blastexplorer.io/address/0x5eAda3477F15A0636D1eDCa309ECcd0A6e8Ab77F) |
+| LoopooorAgentFactory             | [`0xf6B6C15256de133cC722313bfFBb75280Bb2B228`](https://blastexplorer.io/address/0xf6B6C15256de133cC722313bfFBb75280Bb2B228) |
+| AlgebraCLAgentFactory            | [`0xae7af95E52c6221bD27E3f13E28b3517732a8bE7`](https://blastexplorer.io/address/0xae7af95E52c6221bD27E3f13E28b3517732a8bE7) |
 
 ### Account Implementation Contracts
 
@@ -28,9 +29,11 @@
 
 | Contract Name                    | Address                                      |
 |----------------------------------|----------------------------------------------|
-| DexBalancerModuleA               | [`0x35a4B9B95bc1D93Bf8e3CA9c030fc15726b83E6F`](https://blastexplorer.io/address/0x35a4B9B95bc1D93Bf8e3CA9c030fc15726b83E6F) |
+| DexBalancerModuleA               | [`0x7e8280f5Ee5137f89d09FA61B356fa322a93415a`](https://blastexplorer.io/address/0x7e8280f5Ee5137f89d09FA61B356fa322a93415a) |
 | MultiplierMaxxooorModuleB        | [`0x54D588243976F7fA4eaf68d77122Da4e6C811167`](https://blastexplorer.io/address/0x54D588243976F7fA4eaf68d77122Da4e6C811167) |
 | ConcentratedLiquidityModuleC     | [`0x10C02a975a748Db5B749Dc420154dD945e2e8657`](https://blastexplorer.io/address/0x10C02a975a748Db5B749Dc420154dD945e2e8657) |
+| LoopooorModuleD                  | [`0x6A9D21A09A76808C444a89fE5fCc0a5f38dc0523`](https://blastexplorer.io/address/0x6A9D21A09A76808C444a89fE5fCc0a5f38dc0523) |
+| ConcentratedLiquidityModuleE     | [`0xD18eD95286316a359291b21d02e8d46C59986302`](https://blastexplorer.io/address/0xD18eD95286316a359291b21d02e8d46C59986302) |
 
 ### External Utility Contracts
 

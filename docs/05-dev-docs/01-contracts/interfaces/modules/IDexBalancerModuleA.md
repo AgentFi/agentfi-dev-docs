@@ -150,6 +150,14 @@ Designed for use on Blast Mainnet only.
 
 
 
+### moduleA_depositBalanceAndRefundTo
+```solidity
+  function moduleA_depositBalanceAndRefundTo() external
+```
+
+
+
+
 ### moduleA_withdrawBalance
 ```solidity
   function moduleA_withdrawBalance() external

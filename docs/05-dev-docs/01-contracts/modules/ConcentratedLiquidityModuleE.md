@@ -1,14 +1,13 @@
-<a href="https://github.com/AgentFi/agentfi-contracts/blob/main/contracts/modules/ConcentratedLiquidityModuleC.sol"><img src="/img/github.svg" alt="Github" width="50px"/> Source</a><br/><br/>
+<a href="https://github.com/AgentFi/agentfi-contracts/blob/main/contracts/modules/ConcentratedLiquidityModuleE.sol"><img src="/img/github.svg" alt="Github" width="50px"/> Source</a><br/><br/>
 
-A module used in the Concentrated liquidity strategy.
+A module used in the Concentrated liquidity strategy. This version integrates with Alebgra
 
-Designed for use on Blast Mainnet only. Be careful of signature collisions
 
 
 ## Functions
-### concentratedLiquidityModuleCStorage
+### concentratedLiquidityModuleEStorage
 ```solidity
-  function concentratedLiquidityModuleCStorage() internal returns (struct ConcentratedLiquidityModuleC.ConcentratedLiquidityModuleCStorage s)
+  function concentratedLiquidityModuleEStorage() internal returns (struct ConcentratedLiquidityModuleE.ConcentratedLiquidityModuleEStorage s)
 ```
 
 
@@ -20,10 +19,11 @@ Designed for use on Blast Mainnet only. Be careful of signature collisions
     address blast_,
     address gasCollector_,
     address blastPoints_,
-    address pointsOperator_
+    address pointsOperator_,
+    address weth_
   ) public
 ```
-Constructs the ConcentratedLiquidityModuleC contract.
+Constructs the ConcentratedLiquidityModuleE contract.
 
 
 #### Parameters:
@@ -33,6 +33,7 @@ Constructs the ConcentratedLiquidityModuleC contract.
 | `gasCollector_` | address | The address of the gas collector. |
 | `blastPoints_` | address | The address of the blast points contract. |
 | `pointsOperator_` | address | The address of the blast points operator. |
+| `weth_` | address | The address of wrapped ether. |
 
 ### moduleName
 ```solidity
@@ -66,13 +67,24 @@ Address for the NonfungiblePositionManager
 
 
 
-### slot0
+### safelyGetStateOfAMM
 ```solidity
-  function slot0() public returns (uint160 sqrtPriceX96, int24 tick, uint16 observationIndex, uint16 observationCardinality, uint16 observationCardinalityNext, uint8 feeProtocol, bool unlocked)
+  function safelyGetStateOfAMM() external returns (uint160 sqrtPrice, int24 tick, uint16 lastFee, uint8 pluginConfig, uint128 activeLiquidity, int24 nextTick, int24 previousTick)
 ```
+Safely get most important state values of Algebra Integral AMM
 
 
 
+#### Return Values:
+| Name                           | Type          | Description                                                                  |
+| :----------------------------- | :------------ | :--------------------------------------------------------------------------- |
+| `sqrtPrice` | uint160 | The current price of the pool as a sqrt(dToken1/dToken0) Q64.96 value |
+| `tick` | int24 | The current global tick of the pool. May not always be equal to SqrtTickMath.getTickAtSqrtRatio(price) if the price is on a tick boundary |
+| `lastFee` | uint16 | The current (last known) pool fee value in hundredths of a bip, i.e. 1e-6 (so '100' is '0.01%'). May be obsolete if using dynamic fee plugin |
+| `pluginConfig` | uint8 | The current plugin config as bitmap. Each bit is responsible for enabling/disabling the hooks, the last bit turns on/off dynamic fees logic |
+| `activeLiquidity` | uint128 |  The currently in-range liquidity available to the pool |
+| `nextTick` | int24 | The next initialized tick after current global tick |
+| `previousTick` | int24 | The previous initialized tick before (or at) current global tick |
 
 ### tokenId
 ```solidity
@@ -82,19 +94,43 @@ TokenId of NFT position (if exists)
 
 
 
+### tickSpacing
+```solidity
+  function tickSpacing() external returns (int24 spacing)
+```
+The pool tick spacing
+
+
+
 ### position
 ```solidity
-  function position() public returns (uint96 nonce, address operator, address token0, address token1, uint24 fee, int24 tickLower, int24 tickUpper, uint128 liquidity, uint256 feeGrowthInside0LastX128, uint256 feeGrowthInside1LastX128, uint128 tokensOwed0, uint128 tokensOwed1)
+  function position() public returns (uint96 nonce, address operator, address token0, address token1, int24 tickLower, int24 tickUpper, uint128 liquidity, uint256 feeGrowthInside0LastX128, uint256 feeGrowthInside1LastX128, uint128 tokensOwed0, uint128 tokensOwed1)
 ```
 Get the underlying pool position
 
 reverts if no position exists
 
 
-### moduleC_mint
+### moduleE_wrap
 ```solidity
-  function moduleC_mint(
-    struct IConcentratedLiquidityModuleC.MintParams params
+  function moduleE_wrap() public
+```
+
+
+
+
+### moduleE_unwrap
+```solidity
+  function moduleE_unwrap() public
+```
+
+
+
+
+### moduleE_mint
+```solidity
+  function moduleE_mint(
+    struct IConcentratedLiquidityModuleE.MintParams params
   ) public returns (uint256 tokenId_, uint128 liquidity, uint256 amount0, uint256 amount1)
 ```
 Creates a new position wrapped in a NFT
@@ -105,7 +141,7 @@ a method does not exist, i.e. the pool is assumed to be initialized.
 #### Parameters:
 | Name | Type | Description                                                          |
 | :--- | :--- | :------------------------------------------------------------------- |
-| `params` | struct IConcentratedLiquidityModuleC.MintParams | The params necessary to mint a position, encoded as `MintParams` in calldata |
+| `params` | struct IConcentratedLiquidityModuleE.MintParams | The params necessary to mint a position, encoded as `MintParams` in calldata |
 
 #### Return Values:
 | Name                           | Type          | Description                                                                  |
@@ -115,9 +151,9 @@ a method does not exist, i.e. the pool is assumed to be initialized.
 | `amount0` | uint256 | The amount of token0 |
 | `amount1` | uint256 | The amount of token1 |
 
-### moduleC_increaseLiquidity
+### moduleE_increaseLiquidity
 ```solidity
-  function moduleC_increaseLiquidity() public returns (uint128 liquidity, uint256 amount0, uint256 amount1)
+  function moduleE_increaseLiquidity() public returns (uint128 liquidity, uint256 amount0, uint256 amount1)
 ```
 Increases the amount of liquidity in a position, with tokens paid by the `msg.sender`
 amount0Desired The desired amount of token0 to be spent,
@@ -135,33 +171,33 @@ deadline The time by which the transaction must be included to effect the change
 | `amount0` | uint256 | The amount of token0 to acheive resulting liquidity |
 | `amount1` | uint256 | The amount of token1 to acheive resulting liquidity |
 
-### moduleC_decreaseLiquidity
+### moduleE_decreaseLiquidity
 ```solidity
-  function moduleC_decreaseLiquidity() public returns (uint256 amount0, uint256 amount1)
+  function moduleE_decreaseLiquidity() public returns (uint256 amount0, uint256 amount1)
 ```
 
 
 
 
-### moduleC_collect
+### moduleE_collect
 ```solidity
-  function moduleC_collect() public returns (uint256 amount0, uint256 amount1)
+  function moduleE_collect() public returns (uint256 amount0, uint256 amount1)
 ```
 
 
 
 
-### moduleC_burn
+### moduleE_burn
 ```solidity
-  function moduleC_burn() public
+  function moduleE_burn() public
 ```
 
 
 
 
-### moduleC_exactInputSingle
+### moduleE_exactInputSingle
 ```solidity
-  function moduleC_exactInputSingle(
+  function moduleE_exactInputSingle(
     address params
   ) public returns (uint256 amountOut)
 ```
@@ -178,132 +214,105 @@ Swaps `amountIn` of one token for as much as possible of another token
 | :----------------------------- | :------------ | :--------------------------------------------------------------------------- |
 | `amountOut` | uint256 | The amount of the received token |
 
-### moduleC_exactInputSingle02
+### moduleE_sendBalanceTo
 ```solidity
-  function moduleC_exactInputSingle02(
-    address params
-  ) public returns (uint256 amountOut)
-```
-Swaps `amountIn` of one token for as much as possible of another token
-
-
-#### Parameters:
-| Name | Type | Description                                                          |
-| :--- | :--- | :------------------------------------------------------------------- |
-| `params` | address | The parameters necessary for the swap, encoded as `ExactInputSingleParams` in calldata |
-
-#### Return Values:
-| Name                           | Type          | Description                                                                  |
-| :----------------------------- | :------------ | :--------------------------------------------------------------------------- |
-| `amountOut` | uint256 | The amount of the received token |
-
-### moduleC_sendBalanceTo
-```solidity
-  function moduleC_sendBalanceTo() public
+  function moduleE_sendBalanceTo() public
 ```
 Sends token balance to a specified receiver.
 
 
 
-### moduleC_mintWithBalance
+### moduleE_mintWithBalance
 ```solidity
-  function moduleC_mintWithBalance() public returns (uint256, uint128, uint256, uint256)
+  function moduleE_mintWithBalance() public returns (uint256, uint128, uint256, uint256)
 ```
 Mints new position with all assets in this contract
 
 
 
-### moduleC_mintWithBalanceAndRefundTo
+### moduleE_mintWithBalanceAndRefundTo
 ```solidity
-  function moduleC_mintWithBalanceAndRefundTo() external returns (uint256 tokenId_, uint128 liquidity, uint256 amount0, uint256 amount1)
+  function moduleE_mintWithBalanceAndRefundTo() external returns (uint256 tokenId_, uint128 liquidity, uint256 amount0, uint256 amount1)
 ```
 Mints new position with all assets in this contract
 
 
 
-### moduleC_increaseLiquidityWithBalance
+### moduleE_increaseLiquidityWithBalance
 ```solidity
-  function moduleC_increaseLiquidityWithBalance() public returns (uint128 liquidity, uint256 amount0, uint256 amount1)
+  function moduleE_increaseLiquidityWithBalance() public returns (uint128 liquidity, uint256 amount0, uint256 amount1)
 ```
 Deposit all assets in contract to existing position (does not change range)
 
 
 
-### moduleC_increaseLiquidityWithBalanceAndRefundTo
+### moduleE_increaseLiquidityWithBalanceAndRefundTo
 ```solidity
-  function moduleC_increaseLiquidityWithBalanceAndRefundTo() external returns (uint128 liquidity, uint256 amount0, uint256 amount1)
+  function moduleE_increaseLiquidityWithBalanceAndRefundTo() external returns (uint128 liquidity, uint256 amount0, uint256 amount1)
 ```
 
 
 
 
-### moduleC_collectToSelf
+### moduleE_collectToSelf
 ```solidity
-  function moduleC_collectToSelf() public returns (uint256, uint256)
+  function moduleE_collectToSelf() public returns (uint256, uint256)
 ```
 Collect tokens owned in position, keeping funds in the this contract
 
 
 
-### moduleC_decreaseLiquidityWithSlippage
+### moduleE_decreaseLiquidityWithSlippage
 ```solidity
-  function moduleC_decreaseLiquidityWithSlippage() public returns (uint256, uint256)
+  function moduleE_decreaseLiquidityWithSlippage() public returns (uint256, uint256)
 ```
 Perform partial withdrawal, keeping funds in the this contract
 
 
 
-### moduleC_partialWithdrawalToSelf
+### moduleE_partialWithdrawalToSelf
 ```solidity
-  function moduleC_partialWithdrawalToSelf() public returns (uint256, uint256)
+  function moduleE_partialWithdrawalToSelf() public returns (uint256, uint256)
 ```
 
 
 
 
-### moduleC_fullWithdrawToSelf
+### moduleE_fullWithdrawToSelf
 ```solidity
-  function moduleC_fullWithdrawToSelf() public returns (uint256 amount0, uint256 amount1)
+  function moduleE_fullWithdrawToSelf() public returns (uint256 amount0, uint256 amount1)
 ```
 Withdrawals principal and fee, and burns position, returning the funds to this contract
 
 
 
-### moduleC_collectTo
+### moduleE_collectTo
 ```solidity
-  function moduleC_collectTo() external
+  function moduleE_collectTo() external
 ```
 Collect tokens owned in position, sending funds to the receiver
 
 
 
-### moduleC_partialWithdrawTo
+### moduleE_partialWithdrawTo
 ```solidity
-  function moduleC_partialWithdrawTo() external
+  function moduleE_partialWithdrawTo() external
 ```
 Perform partial withdrawal, sending funds to the receiver
 
 
 
-### moduleC_fullWithdrawTo
+### moduleE_fullWithdrawTo
 ```solidity
-  function moduleC_fullWithdrawTo() external
+  function moduleE_fullWithdrawTo() external
 ```
 Sends funds to receiver after withdrawaling position
 
 
 
-### moduleC_rebalance
+### moduleE_rebalance
 ```solidity
-  function moduleC_rebalance() external
-```
-Withdrawals, swaps and creates a new position at the new range
-
-
-
-### moduleC_rebalance02
-```solidity
-  function moduleC_rebalance02() external
+  function moduleE_rebalance() external
 ```
 Withdrawals, swaps and creates a new position at the new range
 
@@ -321,14 +330,6 @@ Not exact as it does not consider price impact of the swap
 ### _performSwap
 ```solidity
   function _performSwap() internal
-```
-
-
-
-
-### _performSwap02
-```solidity
-  function _performSwap02() internal
 ```
 
 
